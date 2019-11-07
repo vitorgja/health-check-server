@@ -1,0 +1,93 @@
+<div class="row">
+	<div class="col-md-8">
+		<button class="btn btn-primary" data-toggle="modal" data-target="#modalPessoa"><span class="glyphicon glyphicon-plus"></span> Novo Servidor</button>
+	</div>
+	<div class="col-md-4">
+		<input class="form-control" placeholder="Pesquisar" ng-model="pesquisar">
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped" ng-init="listaServidores()">
+			<thead>
+				<th>#</th>
+				<th>Nome</th>
+				<th>Host</th>
+				<th>Full URL</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<!-- Listagem -->
+				<tr dir-paginate="servidor in servidores|filter:pesquisar|itemsPerPage:8">
+					<td>{{servidor.id}}</td>
+					<td>{{servidor.nome}}</td>
+					<td>{{servidor.host}}</td>
+					<td>
+						<a ng-href="{{servidor.protocolo}}{{servidor.host}}{{servidor.port ?  ':' + servidor.port :''}}{{servidor.path}}">
+							{{servidor.protocolo}}{{servidor.host}}{{servidor.port ?  ':' + servidor.port :''}}{{servidor.path}}
+						</a>
+					</td>
+					<td>
+						<button class="btn btn-info btn-xs" ng-click="editar(servidor)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+						<button class="btn btn-danger btn-xs" ng-click="excluir(servidor)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- Paginação -->
+<div class="row">
+	<div class="col-md-12 text-center">
+		<dir-pagination-controls>
+	    </dir-pagination-controls>
+	</div>
+</div>
+
+<!-- Modal Cadastro e Edição -->
+<div class="modal fade" id="modalPessoa" tabindex="-1" role="dialog" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" id="myModalLabel">Servidor</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<label>Nome</label>
+						<input class="form-control" type="text" ng-model="servidor.nome">
+					</div>
+
+					<div class="col-md-3">
+						<label>Protocolo</label>
+						<select class="form-control" ng-model="servidor.protocolo">
+							<option value="https://">HTTPS</option>
+							<option value="http://">HTTP</option>
+						</select>
+					</div>
+
+					<div class="col-md-9">
+						<label>Host</label>
+						<input class="form-control" type="text" ng-model="servidor.host">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label>Port</label>
+						<input class="form-control" type="text" ng-model="servidor.port">
+					</div>
+					<div class="col-md-9">
+						<label>Path</label>
+						<input class="form-control" type="text" ng-model="servidor.path">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="servidor = {}" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="salvar()">Salvar</button>
+			</div>
+		</div>
+	</div>
+</div>

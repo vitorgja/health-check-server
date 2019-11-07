@@ -1,0 +1,93 @@
+<html ng-app="cdg">
+
+<head>
+    <title>Status Servers List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- jQuery -->
+    <!-- <script src="bootstrap/js/jquery-3.4.1.min.js"></script> -->
+
+
+    <!-- Insert this line above script imports  -->
+<script>
+if (typeof module === 'object') {
+    window.module = module; 
+    module = undefined;
+}
+</script>
+
+    <script
+			  src="https://code.jquery.com/jquery-2.2.4.min.js"
+			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+			  crossorigin="anonymous"></script>
+
+
+    <!-- Angular -->
+    <script src="node_modules/angular/angular.js"></script>
+    <!-- Angular - Pagination -->
+    <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
+
+    <!-- App -->
+    <script src="app.js"></script>
+
+    <!-- Bootstrap -->
+    <script async="false" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <!-- Controllers -->
+    <script src="controllers/pessoaController.js"></script>
+    <script src="controllers/servidorController.js"></script>
+
+    <!-- Services -->
+    <script src="services/dbService.js"></script>
+
+    <!-- Insert this line after script imports -->
+<script>if (window.module) module = window.module;</script>
+
+</head>
+
+<body>
+    <!-- Menu -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/">
+                    Clube dos Geeks
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#/pessoas">Pessoas</a>
+                    </li>
+                    <li>
+                        <a href="#/servidores">Servidores</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Onde será carregada a view -->
+    <div ng-view="" class="container"></div>
+    <!-- Rodapé -->
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="//github.io/vitorgja">vitorpereira.com.br</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+
+<script>
+// console.log("$", $);
+// console.log("jQuery", jQuery);
+
+</script>
+
+
+
+
+
+</html>
