@@ -1,0 +1,24 @@
+app-servidores{
+    background: pink;
+    .status{
+        background: pink;
+        span{
+            width: 20px;
+            height: 20px;
+            border-radius: 25px;
+        }
+        &-up{
+            background: green;
+        }
+        &-down{
+            background: red;
+        }
+        &-wait{
+            background: yellow;
+        }
+    }
+
+    .status-wait{
+        background: yellow;
+    }
+}

@@ -1,0 +1,40 @@
+<p>servidores works!</p>
+
+
+<div>
+    {{ novo | json }}
+
+
+    <form action="">
+        nome: <input [(ngModel)]="novo.name" name="name">  <br>
+        protocolo: <select [(ngModel)]="novo.protocolo" name="protocolo"> 
+            <option value="http://">http://</option>
+            <option value="https://">https://</option>
+        </select>  <br>
+        host: <input [(ngModel)]="novo.host" name="host">  <br>
+        port: <input [(ngModel)]="novo.port" name="port">   <br>
+        path: <input [(ngModel)]="novo.path" name="path">   <br>
+        active: <select [(ngModel)]="novo.active" name="active">
+            <option value="1">Sim</option>
+            <option value="0">Não</option>
+        </select> <br>
+
+        <button (click)="salvar()">salvar</button>
+    </form>
+
+    <table>
+        <tr *ngFor="let server of servidores">
+            <td class="status"> 
+                <span [class]="'status-'+server.status"> {{server.status}} </span>
+            </td>
+            <td> {{ server.id }} </td>
+            <td> {{ server.name }} </td>
+            <td> {{ server.getRequestServer() }} </td>
+            <td> {{ server.active }} </td>
+            <td> 
+                <button (click)="delete(server)">apagar</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
