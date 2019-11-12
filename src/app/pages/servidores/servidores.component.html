@@ -7,7 +7,7 @@
 
     <form action="">
         nome: <input [(ngModel)]="novo.name" name="name">  <br>
-        protocolo: <select [(ngModel)]="novo.protocolo" name="protocolo"> 
+        protocolo: <select [(ngModel)]="novo.protocolo" name="protocolo">
             <option value="http://">http://</option>
             <option value="https://">https://</option>
         </select>  <br>
@@ -20,18 +20,34 @@
         </select> <br>
 
         <button (click)="salvar()">salvar</button>
+        <button mat-button color="primary">Primary</button>
     </form>
 
+    <!-- <table mat-table [dataSource]="servidores">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let server"> {{server.name}} </td>
+      </ng-container>
+    </table> -->
+
     <table>
+        <tr>
+            <th> Status </th>
+            <th> # </th>
+            <th> Nome</th>
+            <th> URL </th>
+            <th> Ativo </th>
+            <th> Ações </th>
+        </tr>
         <tr *ngFor="let server of servidores">
-            <td class="status"> 
+            <td class="status">
                 <span [class]="'status-'+server.status"> {{server.status}} </span>
             </td>
-            <td> {{ server.id }} </td>
+            <td> #{{ server.id }} </td>
             <td> {{ server.name }} </td>
             <td> {{ server.getRequestServer() }} </td>
             <td> {{ server.active }} </td>
-            <td> 
+            <td>
                 <button (click)="delete(server)">apagar</button>
             </td>
         </tr>
