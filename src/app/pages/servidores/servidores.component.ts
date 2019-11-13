@@ -27,7 +27,8 @@ export class ServidoresComponent implements OnInit {
     this.database.query('SELECT * FROM servidores WHERE active=1').then((servers: Array<any>) => {
       console.log('servers', servers);
       this.servidores = servers.map(s => new Servidor(s));
-      this.servidores.map(servidor => this.infinytyLoop(servidor));
+
+      this.infinytyLoop();
     });
   }
 
@@ -57,10 +58,23 @@ export class ServidoresComponent implements OnInit {
     });
   }
 
-  async infinytyLoop(servidor: Servidor) {
+  edit(servidor: Servidor) {
+    console.log("EDIT TESTE", servidor);
+    this.novo = servidor;
+  }
+
+  async infinytyLoop() {
+    console.log('this.servidores', this.servidores);
+    this.servidores.map(async servidor => await this.requestServer(servidor));
+
+    await this.delay(10000);
+    // this.infinytyLoop();
+  }
+  async requestServer(servidor: Servidor) {
     if (servidor.active) {
+      console.log('requestServer ', servidor.name);
       // servidor.status = ServerStatus.WAIT;
-      this.database.update('servidores', servidor.id, servidor);
+      // this.database.update('servidores', servidor.id, servidor.status);
       await this.http.get(servidor.getRequestServer()).toPromise()
         .then(res => {
           console.log('res ', res);
@@ -70,10 +84,6 @@ export class ServidoresComponent implements OnInit {
           console.log('err ', err);
           this.buildStatus(err, servidor);
         });
-
-      this.database.update('servidores', servidor.id, servidor);
-      await this.delay(10000);
-      this.infinytyLoop(servidor);
     }
   }
 
@@ -87,11 +97,33 @@ export class ServidoresComponent implements OnInit {
   }
 
   buildStatus(res, servidor: Servidor) {
-    console.log('status', res.status);
+    let data: any = {};
     if (res.status === 200 || res.status === 201) {
       servidor.status = ServerStatus.UP;
+      data = { status: ServerStatus.UP };
+      if (servidor.statusNotified) {
+        data = { ...data, statusNotified: 0 };
+      }
+      this.database.update('servidores', servidor.id, data);
     } else {
       servidor.status = ServerStatus.DOWN;
+      data = { status: ServerStatus.DOWN };
+      if (!servidor.statusNotified) {
+        data = { ...data, statusNotified: 1 };
+        // const notification = new Notification('Servidor Off', {
+        //   body: `O servidor ${servidor.name} esta Off!`,
+        // });
+      }
+
+      console.log(
+        'status', res.status
+        , 'name', servidor.name
+        , 'statusNotified', !!servidor.statusNotified
+        , 'data', data
+      );
+      // console.log('servidor.statusNotified', !!servidor.statusNotified)
+      // console.log('data', data)
+      this.database.update('servidores', servidor.id, data);
     }
   }
 
@@ -101,7 +133,7 @@ export class ServidoresComponent implements OnInit {
 
 
 class Servidor {
-  id?: number;
+  id: number;
   name: string;
   protocolo: string;
   host: string;
@@ -109,6 +141,7 @@ class Servidor {
   path?: string;
   active: boolean;
   status?: ServerStatus;
+  statusNotified?: boolean;
 
   constructor(params?: object) {
     if (params) {

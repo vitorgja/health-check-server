@@ -69,7 +69,8 @@ export class DatabaseService {
         port VARCHAR DEFAULT (443),
         path VARCHAR (200) DEFAULT ('/'),
         active INT DEFAULT (1) ,
-        status VARCHAR (5) DEFAULT('wait')
+        status VARCHAR (5) DEFAULT('wait'),
+        statusNotified INT DEFAULT (0)
     );`;
 
     this.db.run(SQL_CREATE_TABLE, (res) => {
