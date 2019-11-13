@@ -9,12 +9,7 @@ import { AppComponent } from './app.component';
 import { ServidoresComponent } from './pages/servidores/servidores.component';
 import { AppService } from './services/app.service';
 import { ElectronService, NgxElectronModule } from 'ngx-electron';
-
-
-
-// import {BrowserAnimationsModule} from '';
-
-
+import { MaterialModule } from './shared/material.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +18,7 @@ import { ElectronService, NgxElectronModule } from 'ngx-electron';
   ],
   imports: [
     BrowserModule,
+    MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

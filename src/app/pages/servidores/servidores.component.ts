@@ -11,6 +11,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ServidoresComponent implements OnInit {
   novo: Servidor = new Servidor();
+
+  displayedColumns: string[] = ['status', 'id', 'name', 'url', 'active', 'actions'];
   servidores: Servidor[];
   constructor(public database: DatabaseService, public http: HttpClient) { }
 
