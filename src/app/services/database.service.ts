@@ -33,13 +33,18 @@ export class DatabaseService {
     return await new Promise((resolve, reject) => {
       this.db.runAsync(query, (data) => {
         if (data.error) { reject(data.error); }
-        resolve(data);
+        else resolve(data);
       });
     });
   }
 
   insert(table: string, fields: any | object) {
-    return of(this.db.insert(table, fields)); // entidade, dados;
+    return new Promise((resolve, reject) => {
+      this.db.insert(table, fields, (res) => {
+        if (res.error) reject(res.error);
+        else resolve(res);
+      });
+    }); // entidade, dados;
   }
 
   update(table: string, id: number, fields: any | object) {
@@ -49,7 +54,12 @@ export class DatabaseService {
   }
 
   async remove(table: string, id: number) {
-    return await of(this.db.update(table, { active: 0 }, { id: id })); // entidade, dados, where
+    return new Promise((resolve, reject) => {
+      this.db.delete(table, { id: id }, (res) => {
+        if(res.error) reject(res.error);
+        else resolve(res);
+      })
+    });
   }
 
   createTable() {
@@ -75,8 +85,6 @@ export class DatabaseService {
 
     this.db.run(SQL_CREATE_TABLE, (res) => {
       if (res.error) { throw res.error; }
-
-      console.log(res);
     });
   }
 
@@ -92,7 +100,7 @@ export class DatabaseService {
     this.db.run(SQL_INSERT, (res) => {
       if (res.error) { throw res.error; }
 
-      console.log(res);
+      console.log("insertDefault", res);
     });
   }
 }

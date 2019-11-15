@@ -1,0 +1,58 @@
+<section class="modal-section">
+    <ng-container *ngIf="!isEditMode; then ifCreateMode; else ifEditeMode"></ng-container>
+    <ng-template #ifCreateMode>
+        <h3>Adicionar Servidor</h3>
+    </ng-template>
+    <ng-template #ifEditeMode>
+        <h3>Editar Servidor</h3>
+    </ng-template>
+
+    <form action="" [formGroup]="servidor">
+
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Nome" formControlName="name" name="name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Protocolo</mat-label>
+            <mat-select formControlName="protocolo" name="protocolo">
+                <mat-option value="https://">https://</mat-option>
+                <mat-option value="http://">http://</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Host" formControlName="host" name="host">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Porta" formControlName="port" name="port">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Path" formControlName="path" name="path">
+        </mat-form-field>
+
+        <mat-form-field>
+            <!-- <mat-checkbox   formControlName="active" name="active">Ativo</mat-checkbox> -->
+
+
+
+            <mat-label>Ativo</mat-label>
+            <mat-select formControlName="active" name="active">
+                <mat-option [value]="1">Sim</mat-option>
+                <mat-option [value]="0">Não</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <button mat-raised-button (click)="salvar()" color="primary" class="pull-right">
+            <ng-container *ngIf="!isEditMode; then ifSave; else ifEdite"></ng-container>
+            <ng-template #ifSave>Adicionar</ng-template>
+            <ng-template #ifEdite>Editar</ng-template>
+        </button>
+        <button mat-raised-button (click)="servidor.reset(defaultServidor)" color="secundary" class="pull-right">
+            resetar
+        </button>
+    </form>
+</section>

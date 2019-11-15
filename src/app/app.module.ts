@@ -10,11 +10,12 @@ import { ServidoresComponent } from './pages/servidores/servidores.component';
 import { AppService } from './services/app.service';
 import { ElectronService, NgxElectronModule } from 'ngx-electron';
 import { MaterialModule } from './shared/material.module';
+import { ModalServidorModule } from './components/modal-servidor/modal-servidor.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServidoresComponent
+    ServidoresComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,7 @@ import { MaterialModule } from './shared/material.module';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-
+    ModalServidorModule,
     NgxElectronModule,
   ],
   // providers: [ AppService ],
